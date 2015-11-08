@@ -19,20 +19,25 @@ public class LinkedList<T> {
   void printList() {
     Node<T> current = head;
     while(current != null) {
-      System.out.println(" -> " + current.getValue());
+      System.out.print(current.getValue());
       current = current.getNext();
+      if(current != null) {
+        System.out.print("  ->  ");
+      }
     }
+    System.out.println();
   }
-  
+
   void reverse() {
+    System.out.println("Reverse");
     if (head == null || head.getNext() == null) {
       return;
     }
-    
+
     Node<T> prev = null;
     Node<T> current = head;
     Node<T> next = null;
-    
+
     while(current != null) {
       next = current.getNext();
       current.setNext(prev);
@@ -40,6 +45,31 @@ public class LinkedList<T> {
       current = next;
     }
     head = prev;    
+  }
+
+  void pairWiseSwap() {
+    System.out.println("Pair wise swap");
+    if (head == null || head.getNext() == null) {
+      return;
+    }
+
+    Node<T> prev = null;
+    Node<T> current = head;
+    Node<T> next = head.getNext();
+
+    head = current.getNext();
+
+    while(current != null && next != null) {      
+      if (prev != null) {
+        prev.setNext(next);
+      }     
+      current.setNext(next.getNext());
+      next.setNext(current);
+      
+      prev = current;
+      current = current.getNext();
+      next = current.getNext();
+    }
   }
 
   public static void main(String[] args) {
@@ -51,8 +81,11 @@ public class LinkedList<T> {
     list.add(5);
 
     list.printList();
+
     list.reverse();
-    System.out.println("Reverse");
+    list.printList();
+
+    list.pairWiseSwap();    
     list.printList();
 
   }
