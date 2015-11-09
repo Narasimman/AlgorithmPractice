@@ -72,6 +72,27 @@ public class LinkedList<T> {
     }
   }
 
+  Node<T> kthFromLast(int k) {
+    int count = 0;
+    Node<T> current = head, tail = head;
+    
+    while (count < k && tail != null) {
+      tail = tail.getNext();
+      count++;
+    }
+    
+    if(count < k) {
+      return null;
+    }
+    
+    while(tail != null) {
+      current = current.getNext();
+      tail = tail.getNext();
+    }
+    System.out.println(k + "->  Kth from last : " + current.getValue());
+    return current;    
+  }
+  
   public static void main(String[] args) {
     LinkedList<Integer> list = new LinkedList<Integer>();
     list.add(1);
@@ -87,6 +108,8 @@ public class LinkedList<T> {
 
     list.pairWiseSwap();    
     list.printList();
+    
+    list.kthFromLast(2);
 
   }
 }
