@@ -1,26 +1,37 @@
 package ds;
 
 public class LinkedList<T> {
+    
   private Node<T> head;
 
+  private class Node<T> {
+    private T value;
+    private Node<T> next;
+
+    Node(T value) {
+      this.value = value;
+      this.next = null;
+    }
+  }
+  
   void add(T value) {
     Node<T> newNode = new Node<T>(value);
     if (head == null) {
       head = newNode;
     } else {
       Node<T> current = head;
-      while(current.getNext() != null) {
-        current = current.getNext();
+      while(current.next != null) {
+        current = current.next;
       }
-      current.setNext(newNode);
+      current.next = newNode;
     }
   }
 
   void printList() {
     Node<T> current = head;
     while(current != null) {
-      System.out.print(current.getValue());
-      current = current.getNext();
+      System.out.print(current.value);
+      current = current.next;
       if(current != null) {
         System.out.print("  ->  ");
       }
@@ -30,7 +41,7 @@ public class LinkedList<T> {
 
   void reverse() {
     System.out.println("Reverse");
-    if (head == null || head.getNext() == null) {
+    if (head == null || head.next == null) {
       return;
     }
 
@@ -39,8 +50,8 @@ public class LinkedList<T> {
     Node<T> next = null;
 
     while(current != null) {
-      next = current.getNext();
-      current.setNext(prev);
+      next = current.next;
+      current.next = prev;
       prev = current;
       current = next;
     }
@@ -49,26 +60,26 @@ public class LinkedList<T> {
 
   void pairWiseSwap() {
     System.out.println("Pair wise swap");
-    if (head == null || head.getNext() == null) {
+    if (head == null || head.next == null) {
       return;
     }
 
     Node<T> prev = null;
     Node<T> current = head;
-    Node<T> next = head.getNext();
+    Node<T> next = head.next;
 
-    head = current.getNext();
+    head = current.next;
 
     while(current != null && next != null) {      
       if (prev != null) {
-        prev.setNext(next);
+        prev.next = next;
       }     
-      current.setNext(next.getNext());
-      next.setNext(current);
+      current.next = next.next;
+      next.next = current;
       
       prev = current;
-      current = current.getNext();
-      next = current.getNext();
+      current = current.next;
+      next = current.next;
     }
   }
 
@@ -77,7 +88,7 @@ public class LinkedList<T> {
     Node<T> current = head, tail = head;
     
     while (count < k && tail != null) {
-      tail = tail.getNext();
+      tail = tail.next;
       count++;
     }
     
@@ -86,10 +97,10 @@ public class LinkedList<T> {
     }
     
     while(tail != null) {
-      current = current.getNext();
-      tail = tail.getNext();
+      current = current.next;
+      tail = tail.next;
     }
-    System.out.println(k + "->  Kth from last : " + current.getValue());
+    System.out.println(k + "->  Kth from last : " + current.value);
     return current;    
   }
   
