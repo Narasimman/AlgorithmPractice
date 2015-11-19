@@ -4,11 +4,11 @@ public class LinkedList<T> {
     
   private Node<T> head;
 
-  private class Node<T> {
-    private T value;
-    private Node<T> next;
+  private static class Node<E> {
+    private E value;
+    private Node<E> next;
 
-    Node(T value) {
+    Node(E value) {
       this.value = value;
       this.next = null;
     }
