@@ -65,8 +65,7 @@ public class Tree<T extends Comparable<T>> {
     System.out.println("Iterative inorder");
     Stack<Node<T>> stack = new Stack<Node<T>>();
     Node<T> node = root;
-    stack.push(node);
-    while(!stack.isEmpty()) {
+    while(!stack.isEmpty() || node != null) {
       if(node != null) {
         stack.push(node);
         node = node.left;
@@ -126,9 +125,7 @@ public class Tree<T extends Comparable<T>> {
   }
 
   public void isBST() {
-    System.out.println("IS BST:");
-    System.out.print(isBSTUtil(root, Integer.MIN_VALUE, Integer.MAX_VALUE));
-    System.out.println();
+    System.out.println("IS BST:" + isBSTUtil(root, Integer.MIN_VALUE, Integer.MAX_VALUE));
   }
   
   private boolean isBSTUtil(Node<T> root, int min, int max) {
@@ -148,7 +145,7 @@ public class Tree<T extends Comparable<T>> {
     if(root == null) {
       return;
     }
-    
+    System.out.println("Level order Traversal: ");
     Queue<Node<T>> queue = new ArrayDeque<Node<T>>();
     queue.add(root);
     
@@ -163,11 +160,77 @@ public class Tree<T extends Comparable<T>> {
         queue.add(node.right);
       }
       
-      System.out.println(node.value);
+      System.out.print(" " + node.value);
     }
-    
+    System.out.println();
   }
 
+  private void printLevel(Node<T> root, int level, T data) {
+    if(root == null) {
+      return;
+    }
+    
+    if(root.value.compareTo(data) == 0) {
+      System.out.println("Level: " + level);
+      return;
+    }
+    
+    printLevel(root.left, level + 1, data);
+    printLevel(root.right, level + 1, data);
+  }
+  
+  
+  private boolean printAncestors(Node<T> root, T data) {
+    if(root == null) {
+      return false;
+    }
+
+    //return if this is the data, we are done
+    if(root.value == data) {
+      System.out.println("ANCESTORS: ");
+      return true;
+    }
+
+    boolean anc = printAncestors(root.left, data) ||
+        printAncestors(root.right, data);
+    
+    if(anc) {
+      System.out.print(" " + root.value);
+      return true;
+    }
+    return false;    
+  } 
+
+  private boolean leastCommonAncestor(Node<T> root, T data1, T data2) {
+    if(root == null) {
+      return false;
+    }
+    
+    boolean inLeft = false, inRight = false;
+    
+    if(root.value == data1) {
+      return true;
+    }
+    
+    if(root.value == data2) {
+      return true;
+    }
+    
+    inLeft = leastCommonAncestor(root.left, data1, data2);
+      
+    inRight = leastCommonAncestor(root.right, data1, data2);
+
+    if(inLeft && inRight) {
+      System.out.println("\nLCA: " + root.value);
+    }
+    
+    if(inLeft) {
+      return inLeft;
+    } else {
+      return inRight;
+    }
+  }
+  
   public static void main(String[] args) {
     Tree<Integer> tree = new Tree<Integer>();
 
@@ -197,6 +260,12 @@ public class Tree<T extends Comparable<T>> {
     
     
     tree.levelOrderTraversal();
+    
+    tree.printLevel(tree.root, 1, 9);
+    
+    tree.printAncestors(tree.root, 9);
+    
+    tree.leastCommonAncestor(tree.root, 3, 4);
     
   } 
 }

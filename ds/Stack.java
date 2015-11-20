@@ -29,9 +29,12 @@ public class Stack<T> {
     } else {
       T item = top.value;
       top = top.next;
-      System.out.println(item);
       return item;
     }
+  }
+  
+  public boolean isEmpty() {
+    return (top == null);
   }
   
   public static void main(String[] args) {

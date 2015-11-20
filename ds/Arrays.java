@@ -1,7 +1,5 @@
 package ds;
 
-import javax.print.attribute.standard.Finishings;
-
 public class Arrays {
 
   private static int findElementInRotated(int[] input, int val) {
