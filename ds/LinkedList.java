@@ -26,6 +26,19 @@ public class LinkedList<T> {
       current.next = newNode;
     }
   }
+  
+  Node<T> get(int index) {
+    Node<T> current = head;
+    int counter = 0;
+    while(current != null && current.next != null) {
+      if(counter == index) {
+        return current;
+      }
+      current = current.next;
+      counter++;
+    }
+    return null;
+  }
 
   void printList() {
     Node<T> current = head;
@@ -103,6 +116,29 @@ public class LinkedList<T> {
     System.out.println(k + "->  Kth from last : " + current.value);
     return current;    
   }
+
+  Node<T> findStartOfLoop() {
+    Node<T> slow = head;
+    Node<T> fast = head;
+    
+    while(fast != null && fast.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+      
+      if (slow == fast) {
+        break;
+      }
+    }
+    
+    slow = head;
+    
+    while(slow != fast) {
+      slow = slow.next;
+      fast = fast.next;
+    }
+    
+    return slow;
+  }
   
   public static void main(String[] args) {
     LinkedList<Integer> list = new LinkedList<Integer>();
@@ -121,6 +157,19 @@ public class LinkedList<T> {
     list.printList();
     
     list.kthFromLast(2);
-
+    
+    LinkedList<Integer> loopList = new LinkedList<Integer>();
+    
+    for (int i = 0; i < 10; i++) {
+      loopList.add(i);
+    }
+    
+    Node<Integer> loop = loopList.get(5);
+    Node<Integer> end = loopList.get(8);
+    end.next = loop;
+    
+    System.out.println("Loop: " + loopList.findStartOfLoop().value);
+  
+    
   }
 }
