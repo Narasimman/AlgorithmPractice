@@ -29,7 +29,7 @@ public class Tree<T extends Comparable<T>> {
     }
   }
 
-  public void insert(Node<T> root, Node<T> node) {
+  private void insert(Node<T> root, Node<T> node) {
       if(node.value.compareTo(root.value) < 0) {
         if(root.left == null) {
           root.left = node;
