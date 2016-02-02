@@ -141,7 +141,7 @@ public class LinkedList<T> {
     return slow;
   }
 
-  boolean palindrome() {
+  boolean palindrome() throws Exception {
     Node<T> fast = head;
     Node<T> slow = head;
 
@@ -167,7 +167,7 @@ public class LinkedList<T> {
     return true;
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     LinkedList<Integer> list = new LinkedList<Integer>();
     list.add(1);
     list.add(2);

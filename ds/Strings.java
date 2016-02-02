@@ -2,7 +2,7 @@ package ds;
 
 public class Strings {
 
-  private static boolean isBalancedParanthesis(String str) {
+  private static boolean isBalancedParanthesis(String str) throws Exception {
     if(str.length() < 2 || str.length()%2 == 1) {
       return false;
     }
@@ -55,7 +55,7 @@ public class Strings {
     return reverse(str.substring(1)) + str.charAt(0);
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     System.out.println(isBalancedParanthesis("{{{}}{}}}}"));
     System.out.println(reverseInput("abc def gh"));
     

@@ -22,14 +22,21 @@ public class Stack<T> {
     top = node;
   }
 
-  public T pop() {
+  public T pop() throws Exception {
     if(top == null) {
-      return null;
+      throw new Exception("Stack Empty");
     }
 
     T item = top.value;
     top = top.next;
     return item;
+  }
+  
+  public T peek() throws Exception {
+    if(top == null) {
+      throw new Exception("Stack Empty");
+    }
+    return top.value;
   }
 
   public boolean isEmpty() {
